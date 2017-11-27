@@ -11,11 +11,6 @@ def draw_circle(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONCLK:
         cv2.circle(frame, (x,y), 100, (255, 0, 0), -1)
 
-img1 = cv2.imread('spongebob.jpg')
-img2 = cv2.imread('shape.png')
-
-rows, cols, channels = img2.shape
-roi = img1[0:rows, 0:cols]
 """
 img1 = cv2.resize(img1, None, fx = 2.5, fy = 2.5, interpolation = cv2.INTER_CUBIC)
 img1 = cv2.medianBlur(img1, 11)

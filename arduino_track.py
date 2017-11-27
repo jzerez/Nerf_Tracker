@@ -8,7 +8,7 @@ import serial
 
 cap = cv2.VideoCapture(0)
 counter = 0
-ser = serial.Serial('thing', 9600)
+ser = serial.Serial('/dev/ttyACM1', 9600)
 
 def generate_mask(frame, color = "blue"):
     blur = cv2.GaussianBlur(frame, (7,7), 0)
@@ -61,8 +61,20 @@ while (True):
     if len(contours) > 0:
         x = calc_coordinates(frame, contours)[0]
         y = calc_coordinates(frame, contours)[1]
-        ser.write("x = " + str(x))
-        ser.write(", y = " + str(y))
+        if (x < 10):
+            ser.write("x = 00" + str(x))
+        elif (x < 100):
+            ser.write("x = 0" + str(x))
+        else:
+            ser.write("x = " + str(x))
+
+        if (y < 10):
+            ser.write(", y = 00" + str(y))
+        elif (y < 100):
+            ser.write(", y = 0" + str(y))
+        else:
+            ser.write(", y = " + str(y))
+
         ser.write("\n")
     cv2.imshow('final', frame)
     if cv2.waitKey(1) & 0xFF == ord('q'):
